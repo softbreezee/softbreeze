@@ -1,0 +1,9 @@
+<nav class="main-nav">
+  <div class="nav-scroller">
+    <% theme.nav_menu.forEach(function(item){ %>
+      <a href="<%= item.link %>" class="nav-item">
+        <%= item.name %>
+      </a>
+    <% }) %>
+  </div>
+</nav>

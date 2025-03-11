@@ -1,0 +1,47 @@
+# 主题基础信息
+title: "Tech Insights"
+subtitle: "探索技术本质"
+description: "专注前沿技术解析与实践"
+# social:
+#   github: https://github.com/softbreezee
+#   twitter: https://twitter.com/softbreezee
+
+# 启用评论模块
+comment:
+  enable: true
+  type: gitalk   # 使用 Gitalk 评论系统
+  gitalk_client_id: "Ov23lix1g7JfB4cnDUB0"
+  gitalk_client_secret: "1cf3eba44af260c510549961b882680191bdd8bf"
+  gitalk_repo: "softbreeze"  # 例如 "blog-comments"
+  gitalk_owner: "softbreezee"
+  gitalk_admin: "softbreezee"
+
+# 新增配置项
+avatar: /images/avatar.jpg  # 头像路径
+# 社交链接配置（统一为列表格式）
+social:
+  - name: GitHub
+    icon: github
+    url: https://github.com/softbreezee  # 替换为你的 GitHub 地址
+  - name: Twitter
+    icon: twitter
+    url: https://twitter.com/softbreezee  # 替换为你的 Twitter 地址
+
+# 导航菜单配置
+nav_menu:
+  - name: A
+    link: /search/a/  # 对应搜索页路由
+    class: nav-a
+  - name: B 
+    link: /search/b/
+    class: nav-b
+  - name: C
+    link: /search/c/
+    class: nav-c
+
+
+search:
+  enable: true
+  type: local
+  path: /search
+  placeholder: "搜索文章..."

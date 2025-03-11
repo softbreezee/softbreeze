@@ -1,0 +1,50 @@
+/* 全屏导航栏核心代码 */
+.main-nav {
+    --nav-bg: #fff;
+    --nav-text: #1a1a1a;
+    --nav-active: #2563eb;
+    
+    width: 100vw;        /* 强制全视口宽度 */
+    position: relative;  
+    left: 50%;           /* 消除父容器偏移 */
+    right: 50%;
+    margin-left: -50vw;  /* 抵消视口偏移 */
+    margin-right: -50vw;
+    background: var(--nav-bg);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    overflow-x: auto;    /* 允许横向滚动 */
+  }
+  
+  .nav-scroller {
+    max-width: 1200px;   /* 内容最大宽度 */
+    margin: 0 auto;     /* 内容居中 */
+    display: flex;
+    gap: 2rem;
+    padding: 1rem 2rem;  /* 保证边缘间距 */
+  }
+  
+  .nav-item {
+    color: var(--nav-text);
+    text-decoration: none;
+    white-space: nowrap; /* 禁止文字换行 */
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    transition: all 0.2s;
+  }
+  
+  .nav-item:hover {
+    background: #f3f4f6;
+    color: var(--nav-active);
+  }
+  
+  /* 移动端滚动优化 */
+  @media (max-width: 768px) {
+    .nav-scroller {
+      padding: 1rem;
+    }
+    
+    .nav-item {
+      font-size: 0.9rem;
+      padding: 0.5rem;
+    }
+  }

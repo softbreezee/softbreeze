@@ -1,0 +1,81 @@
+<footer class="site-footer">
+    <div class="footer-container">
+      <!-- 社交媒体链接 -->
+      <div class="social-links">
+        <% theme.social.forEach(function(link){ %>
+          <a href="<%= link.url %>" target="_blank" class="social-icon" aria-label="<%= link.name %>">
+            <i class="fab fa-<%= link.icon %>"></i>
+          </a>
+        <% }) %>
+      </div>
+  
+      <!-- 版权信息 -->
+      <div class="copyright">
+        <p><%= config.author %> © <%= new Date().getFullYear() %> | 由 <a href="https://hexo.io" target="_blank">Hexo</a> 驱动</p>
+      </div>
+  
+      <!-- 附加导航 -->
+      <nav class="footer-nav">
+        <a href="/about">关于</a>
+        <a href="/privacy">隐私</a>
+        <a href="/sitemap.xml">站点地图</a>
+      </nav>
+    </div>
+  </footer>
+  
+  <style>
+  /* 页脚样式 */
+  .site-footer {
+    background: #f3f4f6;
+    padding: 3rem 0;
+    margin-top: 4rem;
+  }
+  
+  .footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    text-align: center;
+  }
+  
+  .social-links {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .social-icon {
+    font-size: 1.5rem;
+    color: #4b5563;
+    transition: color 0.3s;
+  }
+  
+  .social-icon:hover {
+    color: #2563eb;
+  }
+  
+  .copyright {
+    color: #6b7280;
+    font-size: 0.875rem;
+    margin: 1rem 0;
+  }
+  
+  .footer-nav {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 1rem;
+  }
+  
+  .footer-nav a {
+    color: #4b5563;
+    text-decoration: none;
+    font-size: 0.875rem;
+  }
+  
+  .footer-nav a:hover {
+    color: #2563eb;
+    text-decoration: underline;
+  }
+  </style>
