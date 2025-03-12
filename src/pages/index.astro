@@ -1,32 +1,8 @@
 ---
-// 欢迎使用 Astro！这些三破折号代码围栏之间的内容是你的 "component frontmatter"。它不会在浏览器中运行。
-console.log("这段代码在你的终端运行，而不是在浏览器中！");
-import Footer from "../components/Footer.astro";
-import Header from "../components/Header";
-import "../styles/global.css";
-const pageTitle = "soft breeze";
+import BaseLayout from "../layouts/BaseLayout.astro";
+const pageTitle = "首页";
 ---
 
-<!-- 下面是你的 "component template"。它只是 HTML，但加入了一些魔法，帮助你构建出色的模板。 -->
-<html lang="zh-cn">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content={Astro.generator} />
-    <title>{pageTitle}</title>
-  </head>
-  <body>
-    <Header />
-    <h1>Hello, World!</h1>
-    <Footer />
-    <script>
-      import "../scripts/menu.js";
-    </script>
-  </body>
-</html>
-<style>
-  h1 {
-    color: orange;
-  }
-</style>
+<BaseLayout pageTitle={pageTitle}>
+  <h2>我超棒的博客副标题</h2>
+</BaseLayout>
