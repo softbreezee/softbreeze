@@ -21,66 +21,103 @@ h1 {
 }
 
 
-/* 导航样式 */
+/* Navigation Styles */
+.main-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background-color: #f8f8f8; /* Light gray background */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  position: relative;
+}
 
+.nav-links {
+  display: flex;
+  gap: 1rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-link {
+  color: #333; /* Dark text color */
+  text-decoration: none;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.nav-link:hover,
+.nav-link:focus {
+  background-color: #e0e0e0; /* Lighter gray on hover */
+  color: #007bff; /* Blue on hover */
+}
+
+/* Hamburger Styles */
 .hamburger {
   padding-right: 20px;
   cursor: pointer;
+  display: block; /* Show by default for mobile */
 }
 
 .hamburger .line {
   display: block;
-  width: 40px;
-  height: 5px;
-  margin-bottom: 10px;
-  background-color: #ff9776;
+  width: 30px; /* Smaller hamburger lines */
+  height: 3px; /* Thinner hamburger lines */
+  margin-bottom: 6px; /* Reduced spacing */
+  background-color: #333; /* Dark color for hamburger */
+  transition: all 0.3s ease;
 }
 
+/* Expanded Nav Styles */
 .nav-links {
-  width: 100%;
-  top: 5rem;
-  left: 48px;
-  background-color: #ff9776;
-  display: none;
-  margin: 0;
+    width: 100%;
+    top: 4rem;
+    left: 0;
+    background-color: #f8f8f8;
+    display: none;
+    margin: 0;
+    flex-direction: column; /* Stack links vertically */
+    position: absolute;
+    z-index: 10;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.nav-links a {
-  display: block;
-  text-align: center;
-  padding: 10px 0;
-  text-decoration: none;
-  font-size: 1.2rem;
-  font-weight: bold;
-  text-transform: uppercase;
+.nav-links.expanded {
+  display: flex;
 }
 
-.nav-links a:hover,
-.nav-links a:focus {
-  background-color: #ff9776;
-}
-
-.expanded {
-  display: unset;
-}
-
-/* @media 查询用于根据设备的特性（如宽度、高度、方向等）应用不同的样式。 */
-@media screen and (min-width: 636px) {
-  .nav-links {
-    margin-left: 5em;
+.nav-links .nav-link {
     display: block;
+    text-align: center;
+    padding: 1rem;
+    width: 100%;
+}
+
+/* Media Query for Larger Screens */
+@media screen and (min-width: 768px) {
+  .main-nav {
+    padding: 1rem 2rem; /* More padding on larger screens */
+  }
+
+  .nav-links {
+    display: flex;
+    flex-direction: row; /* Links in a row */
     position: static;
     width: auto;
     background: none;
+    box-shadow: none;
   }
 
-  .nav-links a {
+  .nav-links .nav-link {
     display: inline-block;
-    padding: 15px 20px;
+    padding: 0.5rem 1rem;
+    width: auto;
   }
 
   .hamburger {
-    display: none;
+    display: none; /* Hide hamburger on larger screens */
   }
-
 }

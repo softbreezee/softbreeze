@@ -4,7 +4,7 @@ import Hamburger from "./Hamburger";
 const Header = () => {
 
     return (<header>
-        <nav>
+        <nav class="main-nav">
             <Hamburger />
             <div class="nav-links">
                 {/* <span style={{
@@ -15,9 +15,10 @@ const Header = () => {
                 color: "purple"
             }}>SOFT BREEZEE</span> */}
 
-                <a href="/">首页</a>
-                <a href="/about/">关于</a>
-                <a href="/blog/">博客</a>
+                <a class="nav-link" href="/">首页</a>
+                <a class="nav-link" href="/about/">关于</a>
+                <a class="nav-link" href="/blog/">博客</a>
+                <a class="nav-link" href="/tags">标签</a>
             </div>
         </nav>
     </header>
