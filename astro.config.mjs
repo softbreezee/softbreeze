@@ -7,7 +7,7 @@ import react from '@astrojs/react';
 //   base: '/docs',
 //   trailingSlash: "never",
 export default defineConfig({
-  integrations: [react()],
-  site: 'https://www.my-site.dev',
+  integrations: [react() ],
+  site: 'https://www.softrbezzee.cn',
 
 });

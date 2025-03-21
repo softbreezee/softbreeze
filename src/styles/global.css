@@ -1,40 +1,164 @@
+/* global.css */
+
+/* Base Styles */
 html {
-  background-color: #f1f5f9;
-  font-family: sans-serif;
+  background-color: #f8f8f8; /* Lighter background */
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; /* More modern font stack */
+  font-size: 16px; /* Base font size */
+  line-height: 1.6; /* Improved line height for readability */
+  scroll-behavior: smooth; /* Smooth scrolling */
 }
 
 body {
   margin: 0 auto;
   width: 100%;
-  max-width: 80ch;
-  padding: 1rem;
-  line-height: 1.5;
+  max-width: 75ch; /* Slightly narrower content width */
+  padding: 2rem 1rem; /* More padding for breathing room */
+  color: #333; /* Darker text color */
 }
 
 * {
   box-sizing: border-box;
 }
 
-h1 {
-  margin: 1rem 0;
-  font-size: 2.5rem;
+/* Typography */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Georgia", serif; /* Serif font for headings */
+  font-weight: 700; /* Bolder headings */
+  line-height: 1.2;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
 }
 
+h1 {
+  font-size: 2.75rem; /* Larger h1 */
+}
 
+h2 {
+  font-size: 2.25rem;
+}
+
+h3 {
+  font-size: 1.75rem;
+}
+
+h4 {
+  font-size: 1.5rem;
+}
+
+h5 {
+  font-size: 1.25rem;
+}
+
+h6 {
+  font-size: 1rem;
+}
+
+p {
+  margin-bottom: 1.5rem;
+}
+
+a {
+  color: #007bff; /* Primary link color */
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+a:hover,
+a:focus {
+  color: #0056b3; /* Darker link color on hover */
+  text-decoration: underline;
+}
+
+/* Code Blocks */
+pre {
+  background-color: #f0f0f0;
+  padding: 1rem;
+  border-radius: 0.25rem;
+  overflow-x: auto;
+  margin-bottom: 1.5rem;
+}
+
+code {
+  font-family: "Menlo", monospace;
+  background-color: #f0f0f0;
+  padding: 0.2rem 0.4rem;
+  border-radius: 0.25rem;
+}
+
+pre code {
+  background-color: transparent;
+  padding: 0;
+}
+
+/* Lists */
+ul,
+ol {
+  margin-bottom: 1.5rem;
+  padding-left: 2rem;
+}
+
+li {
+  margin-bottom: 0.5rem;
+}
+
+/* Blockquotes */
+blockquote {
+  border-left: 4px solid #ccc;
+  padding-left: 1rem;
+  margin-bottom: 1.5rem;
+  font-style: italic;
+}
+
+/* Horizontal Rule */
+hr {
+  border: 0;
+  border-top: 1px solid #ccc;
+  margin: 2rem 0;
+}
+
+/* Dark Mode */
+html.dark {
+  background-color: #121212; /* Darker background */
+  color: #eee; /* Lighter text color */
+}
+
+.dark .nav-links a {
+  color: #eee;
+}
+
+.dark pre,
+.dark code {
+  background-color: #222;
+}
+
+.dark blockquote {
+  border-left-color: #666;
+}
+
+.dark hr {
+  border-top-color: #666;
+}
 /* Navigation Styles */
 .main-nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem;
-  background-color: #f8f8f8; /* Light gray background */
+  padding: 1rem 2rem; /* Increased padding for better spacing */
+  background-color: #f5f5f5; /* Slightly lighter gray background */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
   position: relative;
+  z-index: 10; /* Ensure nav is above other content */
 }
 
 .nav-links {
   display: flex;
-  gap: 1rem;
+  gap: 1.5rem; /* Increased gap for better spacing */
   list-style: none;
   margin: 0;
   padding: 0;
@@ -44,80 +168,76 @@ h1 {
   color: #333; /* Dark text color */
   text-decoration: none;
   font-weight: 500;
-  padding: 0.5rem 1rem;
-  border-radius: 0.25rem;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  padding: 0.75rem 1.25rem; /* Increased padding for larger touch targets */
+  border-radius: 0.5rem; /* Slightly more rounded corners */
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease; /* Added transform transition */
 }
 
 .nav-link:hover,
 .nav-link:focus {
   background-color: #e0e0e0; /* Lighter gray on hover */
   color: #007bff; /* Blue on hover */
+  transform: translateY(-2px); /* Subtle lift on hover */
 }
 
-/* Hamburger Styles */
+/* Hamburger Styles (Improved Styling) */
 .hamburger {
-  padding-right: 20px;
+  display: block;
   cursor: pointer;
-  display: block; /* Show by default for mobile */
+  padding: 1rem; /* Added padding */
+  border: none; /* Removed unnecessary border */
+  background: transparent; /* Transparent background */
 }
 
 .hamburger .line {
   display: block;
-  width: 30px; /* Smaller hamburger lines */
-  height: 3px; /* Thinner hamburger lines */
-  margin-bottom: 6px; /* Reduced spacing */
-  background-color: #333; /* Dark color for hamburger */
+  width: 30px;
+  height: 3px;
+  margin-bottom: 5px;
+  background-color: #333;
   transition: all 0.3s ease;
+  border-radius: 2px; /* Slightly rounded lines */
 }
 
 /* Expanded Nav Styles */
-.nav-links {
-    width: 100%;
-    top: 4rem;
-    left: 0;
-    background-color: #f8f8f8;
-    display: none;
-    margin: 0;
-    flex-direction: column; /* Stack links vertically */
-    position: absolute;
-    z-index: 10;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
 .nav-links.expanded {
   display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 100%; /* Position below the hamburger */
+  left: 0;
+  width: 100%;
+  background-color: #fff; /* White background for expanded nav */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15); /* More prominent shadow */
+  border-radius: 0.5rem; /* Rounded corners */
 }
 
-.nav-links .nav-link {
-    display: block;
-    text-align: center;
-    padding: 1rem;
-    width: 100%;
+.nav-links.expanded .nav-link {
+  width: 100%;
+  text-align: center;
+  padding: 1rem 0;
 }
+
 
 /* Media Query for Larger Screens */
-@media screen and (min-width: 768px) {
-  .main-nav {
-    padding: 1rem 2rem; /* More padding on larger screens */
+@media (min-width: 768px) {
+  .hamburger {
+    display: none;
   }
-
   .nav-links {
-    display: flex;
-    flex-direction: row; /* Links in a row */
-    position: static;
-    width: auto;
+    flex-direction: row;
+    position: static; /* No longer needs absolute positioning */
     background: none;
     box-shadow: none;
   }
-
+  .nav-links.expanded {
+    position: static;
+    flex-direction: row;
+    background-color: transparent;
+    box-shadow: none;
+  }
   .nav-links .nav-link {
     display: inline-block;
-    padding: 0.5rem 1rem;
     width: auto;
-  }
-
-  .hamburger {
-    display: none; /* Hide hamburger on larger screens */
   }
 }
