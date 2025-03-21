@@ -5,7 +5,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 
 const pageTitle = "标签索引";
 const allPosts = Object.values(
-  import.meta.glob("../posts/*.md", { eager: true })
+  import.meta.glob("../../content/blog/*.md", { eager: true })
 );
 const tags = [
   ...new Set(allPosts.map((post: any) => post.frontmatter.tags).flat()),
