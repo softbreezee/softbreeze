@@ -1,64 +1,93 @@
-section ul {
+.blog-list {
+  width: 70%;
+}
+
+.blog-list ul {
   display: flex;
-  flex-wrap: wrap;
-  gap: 2rem;
-  list-style-type: none;
-  margin: 0;
+  flex-direction: column; 
+  margin: 0; /* Ensure left alignment */
   padding: 0;
+  list-style-type: none;
 }
-ul li {
-  width: calc(50% - 1rem);
+
+.blog-list ul li {
+  width: 100%; /* Each item takes full width */
+  padding: 0.8rem 0rem ;
 }
-ul li * {
+
+.blog-list ul li:first-child img {
+  border-radius: 12px;
+}
+
+.blog-list ul li:first-child .title {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.blog-list ul li:not(:first-child) {
+  padding: 0.6rem 0.2rem ;
+  border-radius: 12px;
+  /* background-color: #f8f8f8; */
+}
+
+.blog-list ul li:not(:first-child) a {
+    /* height: 150px; */
+    display: flex;
+    align-items: flex-end; /* Vertically center content */
+  }
+
+.blog-list ul li:not(:first-child) img {
+  width: 120px;
+  height: auto;
+  margin-right: 1rem;
+  border-radius: 8px;
+}
+
+.blog-list ul li:not(:first-child) .title {
+  font-size: 1.2rem;
+  flex-grow: 1; /* Allow title to take up remaining space */
+}
+
+.blog-list ul li * {
   text-decoration: none;
   transition: 0.2s ease;
 }
-ul li:first-child {
-  width: 100%;
-  margin-bottom: 1rem;
-  text-align: center;
-}
-ul li:first-child img {
-  width: 100%;
-}
-ul li:first-child .title {
-  font-size: 2.369rem;
-}
-ul li img {
-  margin-bottom: 0.5rem;
-  border-radius: 12px;
-}
-ul li a {
-  display: block;
-}
-.title {
+
+.blog-list .title {
   margin: 0;
   color: rgb(var(--black));
   line-height: 1;
 }
-.date {
+
+.blog-list .date {
   margin: 0;
   color: rgb(var(--gray));
+  font-size: 0.8rem;
 }
-ul li a:hover h4,
-ul li a:hover .date {
+
+.blog-list ul li a:hover h4,
+.blog-list ul li a:hover .date {
   color: rgb(var(--accent));
 }
-ul a:hover img {
+
+.blog-list ul a:hover img {
   box-shadow: var(--box-shadow);
 }
+
+/* Media Query (Adjust as needed) */
 @media (max-width: 720px) {
-  ul {
-    gap: 0.5em;
+  .blog-list ul {
+    width: 100%; /* Full width on smaller screens */
+    flex-direction: column; /* Stack vertically on smaller screens */
   }
-  ul li {
+  .blog-list ul li {
     width: 100%;
-    text-align: center;
   }
-  ul li:first-child {
-    margin-bottom: 0;
+  .blog-list ul li:first-child {
+    height: auto; /* Auto height on smaller screens */
   }
-  ul li:first-child .title {
-    font-size: 1.563em;
+  .blog-list ul li:not(:first-child) {
+    height: auto; /* Auto height on smaller screens */
   }
 }

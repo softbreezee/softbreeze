@@ -6,6 +6,7 @@ description: "我遇到了一些问题，但是在社区里面提问真的很有
 image:
     url: "https://docs.astro.build/assets/rays.webp"
     alt: "The Astro logo on a dark background with rainbow rays."
+heroImage: '/blog-placeholder-2.jpg'
 pubDate: 2022-07-15
 tags: ["astro", "learning in public", "setbacks", "community"]
 ---

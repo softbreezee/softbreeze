@@ -4,13 +4,15 @@ import { SITE_TITLE } from '../consts';
 
 ---
 <header>
+	<!-- <style is:inline>
+		.social-links svg { margin-right: 0.5em; }
+	</style> -->
 	<nav>
 		<h2><a href="/">{SITE_TITLE}</a></h2>
 		<div class="internal-links">
 			<HeaderLink href="/">Home</HeaderLink>
 			<HeaderLink href="/blog">Blog</HeaderLink>
 			<HeaderLink href="/about">About</HeaderLink>
-			<HeaderLink href="/tags">tags</HeaderLink>
 		</div>
 		<div class="social-links">
 			<a href="https://m.webtoo.ls/@astro" target="_blank">
@@ -40,6 +42,25 @@ import { SITE_TITLE } from '../consts';
 					></path></svg
 				>
 			</a>
+			<a href="https://www.xiaohongshu.com/user/profile/5f850279000000000100621d" target="_blank">
+				<span class="sr-only">Follow me on Xiaohongshu</span>
+				<svg viewBox="0 0 24 24" aria-hidden="true" width="32" height="32">
+					<path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm3.06 8.2-1.4 1.4c-.2.2-.5.2-.7 0l-2.1-2.1-2.1 2.1c-.2.2-.5.2-.7 0l-1.4-1.4c-.2-.2-.2-.5 0-.7l2.8-2.8c.2-.2.5-.2.7 0l2.8 2.8c.2.2.2.5 0 .7z"/>
+				  </svg>
+			</a>
+			<a href="https://space.bilibili.com/14822768" target="_blank">
+				<span class="sr-only">Follow me on Bilibili</span>
+				<svg viewBox="0 0 24 24" aria-hidden="true" width="32" height="32">
+					<path fill="currentColor" d="M18.5 5.5h-3.2l-1.7-2.3h-3.2L8.7 5.5H5.5c-.8 0-1.5.7-1.5 1.5v10c0 .8.7 1.5 1.5 1.5h13c.8 0 1.5-.7 1.5-1.5V7c0-.8-.7-1.5-1.5-1.5zM12 17.5c-2.8 0-5-2.2-5-5s2.2-5 5-5 5 2.2 5 5-2.2 5-5 5zm0-8c-1.7 0-3 1.3-3 3s1.3 3 3 3 3-1.3 3-3-1.3-3-3-3z"/>
+				  </svg>
+			</a>
+			<a href="https://mp.weixin.qq.com/mp/appmsgalbum?__biz=Mzg2MDIwOTY4Ng==&action=getalbum&album_id=3003938472109946881&scene=173&from_msgid=2247483819&from_itemidx=1&count=3&nolastread=1#wechat_redirect" target="_blank">
+				<span class="sr-only">Follow me on Wechat</span>
+				<svg viewBox="0 0 16 16" aria-hidden="true" width="32" height="32">
+					<path fill="currentColor" d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zm3.5 7.5a.5.5 0 0 1-.5.5H8.5v2a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5V9H5a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h1.5V5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v2.5H11a.5.5 0 0 1 .5.5v1z"></path>
+				  </svg>
+			</a>
+			
 		</div>
 	</nav>
 </header>

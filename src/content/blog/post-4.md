@@ -1,11 +1,12 @@
 ---
 layout: ../../layouts/MarkdownPostLayout.astro
-title: '我的第四篇博客文章'
+title: '我的第四篇博客文章这篇文章会自己出现在列表中这篇文章会自己出现在列表中这篇文章会自己出现在列表中'
 author: 'Astro 学习者'
 description: "这篇文章会自己出现在列表中！"
 image:
   url: "https://docs.astro.build/default-og-image.png"
   alt: "The word astro against an illustration of planets and stars."
+heroImage: '/blog-placeholder-3.jpg'
 pubDate: 2022-08-08
 tags: ["astro", "successes"]
 ---
