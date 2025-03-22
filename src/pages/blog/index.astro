@@ -1,0 +1,72 @@
+---
+import BaseHead from "../../components/BaseHead.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import { SITE_TITLE, SITE_DESCRIPTION } from "../../consts";
+import { getCollection } from "astro:content";
+import BlogList from "../../components/BlogList";
+import BolgListTags from "../../components/BlogListTags";
+
+const posts = (await getCollection("blog")).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const allPosts = Object.values(import.meta.glob("../../content/blog/*.md", { eager: true }));
+const tags = [...new Set(allPosts.map((post: any) => post.frontmatter.tags).flat())];
+
+const clickTag = (tag) => {
+    // selectTag = tag;
+    alert("index --->" + tag);
+    console.log("index --->" + tag);
+  };
+---
+
+<script>
+  var selectTag = "";
+  const clickTag = (tag) => {
+    selectTag = tag;
+    alert("index --->" + tag);
+    console.log("index --->" + tag);
+  };
+</script>
+
+<html lang='en'>
+  <head>
+    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+  </head>
+  <body>
+    <Header />
+    <main>
+      <h1>
+        Posts
+        <a class='text-accent-two' href='/rss.xml' target='_blank'>
+          <span class='sr-only'>RSS feed</span>
+          <svg width='1em' height='1em' aria-hidden='true' class='h-6 w-6' focusable='false' data-icon='mdi:rss'>
+            <symbol id='ai:mdi:rss' viewBox='0 0 24 24'
+              ><path
+                fill='currentColor'
+                d='M6.18 15.64a2.18 2.18 0 0 1 2.18 2.18C8.36 19 7.38 20 6.18 20C5 20 4 19 4 17.82a2.18 2.18 0 0 1 2.18-2.18M4 4.44A15.56 15.56 0 0 1 19.56 20h-2.83A12.73 12.73 0 0 0 4 7.27zm0 5.66a9.9 9.9 0 0 1 9.9 9.9h-2.83A7.07 7.07 0 0 0 4 12.93z'
+              ></path></symbol
+            ><use href='#ai:mdi:rss'></use>
+          </svg>
+        </a>
+      </h1>
+
+      <div class='blog-container'>
+        <BlogList client:visible posts={posts} />
+        <BolgListTags client:visible tags={tags} />
+      </div>
+    </main>
+    <Footer />
+  </body>
+</html>
+
+<style>
+  main {
+    width: 960px;
+    padding: 1.5em 1em;
+  }
+  .blog-container {
+    display: flex; /* Use flexbox for side-by-side layout */
+    justify-content: space-between;
+    /* gap: 2rem;  */
+  }
+</style>

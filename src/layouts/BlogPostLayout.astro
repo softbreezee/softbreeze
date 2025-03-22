@@ -1,0 +1,70 @@
+---
+import type { CollectionEntry } from "astro:content";
+import BaseLayout from "./BaseLayout.astro";
+import FormattedDate from "../components/FormattedDate";
+
+// type Props = CollectionEntry<"blog">["data"];
+
+// const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
+const { frontmatter } = Astro.props;
+---
+
+<BaseLayout title={frontmatter.title}>
+  <div class="title">
+    <div class="date">
+      <FormattedDate date={frontmatter.pubDate} />
+      {
+        frontmatter.updatedDate && (
+          <div class="last-updated-on">
+            Last updated on <FormattedDate date={frontmatter.updatedDate} />
+          </div>
+        )
+      }
+    </div>
+    <h1>{frontmatter.title}</h1>
+    <hr />
+    <div class="tags">
+      {
+        frontmatter.tags.map((tag: string) => (
+          <p class="tag">
+            <a href={`/tags/${tag}`}>{tag}</a>
+          </p>
+        ))
+      }
+    </div>
+  </div>
+  <slot />
+</BaseLayout>
+
+<style>
+  .date {
+    margin-bottom: 0.5em;
+    color: rgb(var(--gray));
+  }
+  .last-updated-on {
+    font-style: italic;
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 1em;
+  }
+  .tag {
+    margin: 0.25em;
+    border: dotted 1px #a1a1a1;
+    border-radius: 0.5em;
+    padding: 0.5em 1em;
+    font-size: 1.15em;
+    background-color: #f8fcfd;
+  }
+  .tag-0 {
+    background-color: #e0f2f7; /* Light blue */
+  }
+  .tag-1 {
+    background-color: #fce4ec; /* Light pink */
+  }
+  .tag-2 {
+    background-color: #e8f5e9; /* Light green */
+  }
+</style>

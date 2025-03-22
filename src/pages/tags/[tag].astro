@@ -6,7 +6,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 // 固定写法
 export async function getStaticPaths() {
   const allPosts = Object.values(
-    import.meta.glob("../posts/*.md", { eager: true })
+    import.meta.glob("../../content/blog/*.md", { eager: true })
   );
 
   //访问任意的 path
