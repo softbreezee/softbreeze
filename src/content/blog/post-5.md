@@ -1,5 +1,5 @@
 ---
-layout: ../../layouts/MarkdownPostLayout.astro
+# layout: ../../layouts/MarkdownPostLayout.astro
 title: 'xxxxxx'
 author: 'Astro 学习者'
 description: "这篇文章会自己出现在列表中！"

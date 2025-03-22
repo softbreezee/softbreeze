@@ -25,7 +25,7 @@ const { frontmatter } = Astro.props;
     <hr />
     <div class="tags">
       {
-        frontmatter.tags.map((tag: string) => (
+        frontmatter.tags?.map((tag: string) => (
           <p class="tag">
             <a href={`/tags/${tag}`}>{tag}</a>
           </p>
@@ -48,23 +48,43 @@ const { frontmatter } = Astro.props;
   .tags {
     display: flex;
     flex-wrap: wrap;
-    margin-bottom: 1em;
   }
   .tag {
-    margin: 0.25em;
+    margin: 0.2em;
     border: dotted 1px #a1a1a1;
     border-radius: 0.5em;
-    padding: 0.5em 1em;
-    font-size: 1.15em;
+    padding: 0.2em 0.8em;
+    font-size: 0.8em;
     background-color: #f8fcfd;
+
   }
-  .tag-0 {
-    background-color: #e0f2f7; /* Light blue */
+  
+
+  .tag:hover {
+    box-shadow: var(--box-shadow);
   }
-  .tag-1 {
-    background-color: #fce4ec; /* Light pink */
+
+  .tag a {
+    text-decoration: none;
+    color: inherit;
   }
-  .tag-2 {
-    background-color: #e8f5e9; /* Light green */
+
+  /* Cycle through border colors (5 colors) */
+  .tag:nth-child(5n+1) {
+    border: 2px solid #2337ff; /* Blue */
   }
+  .tag:nth-child(5n+2) {
+    border: 2px solid #558B2F; /* Green */
+  }
+  .tag:nth-child(5n+3) {
+    border: 2px solid #FF9800; /* Orange */
+  }
+  .tag:nth-child(5n+4) {
+    border: 2px solid #E91E63; /* Pink */
+  }
+  .tag:nth-child(5n+5) {
+    border: 2px solid #9C27B0; /* Purple */
+  }
+
+
 </style>
