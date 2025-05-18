@@ -1,7 +1,9 @@
 ---
 import type { CollectionEntry } from "astro:content";
-import BaseLayout from "./BaseLayout.astro";
 import FormattedDate from "../components/FormattedDate";
+import BaseHead from "../components/BaseHead.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
 
 // type Props = CollectionEntry<"blog">["data"];
 
@@ -9,34 +11,60 @@ import FormattedDate from "../components/FormattedDate";
 const { frontmatter } = Astro.props;
 ---
 
-<BaseLayout title={frontmatter.title}>
-  <div class="title">
-    <div class="date">
-      <FormattedDate date={frontmatter.pubDate} />
-      {
-        frontmatter.updatedDate && (
-          <div class="last-updated-on">
-            Last updated on <FormattedDate date={frontmatter.updatedDate} />
+<html lang="en">
+  <head>
+    <BaseHead title={frontmatter.title} description="" />
+  </head>
+  <body>
+    <Header />
+    <main>
+      <article>
+        <div class="prose">
+          <div class="title">
+            <div class="date">
+              <FormattedDate date={frontmatter.pubDate} />
+              {
+                frontmatter.updatedDate && (
+                  <div class="last-updated-on">
+                    Last updated on{" "}
+                    <FormattedDate date={frontmatter.updatedDate} />
+                  </div>
+                )
+              }
+            </div>
+            <h1>{frontmatter.title}</h1>
+            <hr />
+            <div class="tags">
+              {
+                frontmatter.tags?.map((tag: string) => (
+                  <p class="tag">
+                    <a href={`/tags/${tag}`}>{tag}</a>
+                  </p>
+                ))
+              }
+            </div>
           </div>
-        )
-      }
-    </div>
-    <h1>{frontmatter.title}</h1>
-    <hr />
-    <div class="tags">
-      {
-        frontmatter.tags?.map((tag: string) => (
-          <p class="tag">
-            <a href={`/tags/${tag}`}>{tag}</a>
-          </p>
-        ))
-      }
-    </div>
-  </div>
-  <slot />
-</BaseLayout>
+          <slot />
+        </div>
+      </article>
+    </main>
+    <Footer />
+  </body>
+</html>
 
 <style>
+  main {
+    width: calc(100% - 2em);
+    max-width: 100%;
+    margin: 0;
+  }
+  .prose {
+    width: 1080px;
+    max-width: calc(100% - 2em);
+    margin: auto;
+    padding: 1em;
+    color: rgb(var(--gray-dark));
+  }
   .date {
     margin-bottom: 0.5em;
     color: rgb(var(--gray));
@@ -57,9 +85,7 @@ const { frontmatter } = Astro.props;
     padding: 0.2em 0.8em;
     font-size: 0.8em;
     background-color: #f8fcfd;
-
   }
-  
 
   .tag:hover {
     box-shadow: var(--box-shadow);
@@ -71,21 +97,19 @@ const { frontmatter } = Astro.props;
   }
 
   /* Cycle through border colors (5 colors) */
-  .tag:nth-child(5n+1) {
+  .tag:nth-child(5n + 1) {
     border: 2px solid #2337ff; /* Blue */
   }
-  .tag:nth-child(5n+2) {
-    border: 2px solid #558B2F; /* Green */
+  .tag:nth-child(5n + 2) {
+    border: 2px solid #558b2f; /* Green */
   }
-  .tag:nth-child(5n+3) {
-    border: 2px solid #FF9800; /* Orange */
+  .tag:nth-child(5n + 3) {
+    border: 2px solid #ff9800; /* Orange */
   }
-  .tag:nth-child(5n+4) {
-    border: 2px solid #E91E63; /* Pink */
+  .tag:nth-child(5n + 4) {
+    border: 2px solid #e91e63; /* Pink */
   }
-  .tag:nth-child(5n+5) {
-    border: 2px solid #9C27B0; /* Purple */
+  .tag:nth-child(5n + 5) {
+    border: 2px solid #9c27b0; /* Purple */
   }
-
-
 </style>
