@@ -26,9 +26,8 @@ const style = {
 };
 ---
 
-<BaseLayout
-  title={pageTitle}
->
+<BaseLayout title={pageTitle}>
+  <div class="prose">
   <h2>……和我的新 Astro 网站！</h2>
 
   <!-- 在 html 的部分，使用 js 能力 -->
@@ -65,4 +64,14 @@ const style = {
   <script>
     import "../scripts/menu.js";
   </script>
+  </div>
 </BaseLayout>
+
+<style>
+  .prose {
+    width: 960px;
+    max-width: calc(100% - 2em);
+    margin: auto;
+    padding: 1em;
+  }
+</style>

@@ -8,10 +8,10 @@ export default function Greeting({messages}) {
   const [greeting, setGreeting] = useState(messages[0]);
 
   return (
-    <div>
-      <h3>{greeting}！感谢来访！</h3>
-      <button onClick={() => setGreeting(randomMessage())}>
-        新的欢迎语
+    <div style={{marginLeft: '1rem'}}>
+      <span className="text-primary">{greeting}！感谢来访！</span><br/>
+      <button onClick={() => setGreeting(randomMessage())} style={{background: '#b3afaf'}}>
+        点我, PLEASE!
       </button>
     </div>
   );

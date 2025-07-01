@@ -13,10 +13,13 @@ export async function getStaticPaths() {
 // type Props = CollectionEntry<'blog'>;
 
 const post = Astro.props;
-const { data } = post;
+
+// alert("post --->" + post);
+const { data ,rendered} = post;
 const { Content } = await render(post);
 ---
 
 <BlogPostLayout frontmatter={data}>
+  <!-- {console.log("1-1-1-1->",rendered.metadata)} -->
   <Content />
 </BlogPostLayout>

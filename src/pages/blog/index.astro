@@ -11,23 +11,7 @@ const posts = (await getCollection("blog")).sort((a, b) => b.data.pubDate.valueO
 
 const allPosts = Object.values(import.meta.glob("../../content/blog/*.md", { eager: true }));
 const tags = [...new Set(allPosts.map((post: any) => post.frontmatter.tags).flat())];
-
-const clickTag = (tag) => {
-    // selectTag = tag;
-    alert("index --->" + tag);
-    console.log("index --->" + tag);
-  };
 ---
-
-<script>
-  var selectTag = "";
-  const clickTag = (tag) => {
-    selectTag = tag;
-    alert("index --->" + tag);
-    console.log("index --->" + tag);
-  };
-</script>
-
 <html lang='en'>
   <head>
     <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />

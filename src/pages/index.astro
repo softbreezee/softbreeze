@@ -1,10 +1,15 @@
 ---
-import Greeting from "../components/Greeting";
+import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
+import CodeUniverse from "../components/CodeUniverse.jsx";
+
 const pageTitle = "首页";
+const posts = (await getCollection("blog")).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
 ---
 
 <BaseLayout pageTitle={pageTitle}>
-  <h2>我超棒的博客副标题</h2>
-  <Greeting client:load messages={["hi","hello","howdy","hey there"]} />
+  <CodeUniverse posts={posts} client:load />
 </BaseLayout>
+
