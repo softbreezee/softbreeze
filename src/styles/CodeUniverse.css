@@ -1,0 +1,271 @@
+.code-universe {
+    position: relative;
+    min-height: calc(100vh - 80px); /* 减去header的高度 */
+    /* background: #0a0a0a; */
+    color: #00ff00;
+    font-family: 'Courier New', monospace;
+    overflow-x: hidden;
+    margin-top: 0; /* 确保没有额外的margin */
+    margin-left: 6rem;
+  }
+
+  .matrix-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* 降低z-index，确保在header下方 */
+    opacity: 0.1;
+    pointer-events: none; /* 确保不影响交互 */
+  }
+
+  .universe-header {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 2rem 0;
+    border-bottom: 1px solid #333;
+  }
+
+  .hacker-title {
+    font-size: clamp(2rem, 8vw, 4rem);
+    margin: 0;
+    text-shadow: 0 0 10px #00ff00;
+    animation: glow 2s ease-in-out infinite alternate;
+  }
+
+  .bracket {
+    color: #ff6b6b;
+  }
+
+  .code-text {
+    color: #4ecdc4;
+  }
+
+  .universe-text {
+    color: #ffe66d;
+  }
+
+  @keyframes glow {
+    from {
+      text-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00, 0 0 30px #00ff00;
+    }
+    to {
+      text-shadow: 0 0 20px #00ff00, 0 0 30px #00ff00, 0 0 40px #00ff00;
+    }
+  }
+
+  .subtitle-container {
+    margin-top: 1rem;
+    font-size: 1.2rem;
+  }
+
+  .terminal-prompt {
+    color: #ff6b6b;
+    margin-right: 0.5rem;
+  }
+
+  .typing-text {
+    color: #4ecdc4;
+    animation: typing 3s steps(20, end) infinite;
+  }
+
+  @keyframes typing {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0.7; }
+  }
+
+  .universe-grid {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    max-width: 1400px;
+    margin: 2rem auto;
+    padding: 0 2rem;
+  }
+
+  @media (min-width: 768px) {
+    .universe-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1200px) {
+    .universe-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .game-terminal {
+      grid-column: span 2;
+    }
+  }
+
+  .terminal-section {
+    background: rgba(0, 0, 0, 0.8);
+    border: 1px solid #333;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 255, 0, 0.1);
+    transition: all 0.3s ease;
+  }
+
+  .terminal-section:hover {
+    border-color: #00ff00;
+    box-shadow: 0 4px 30px rgba(0, 255, 0, 0.2);
+  }
+
+  .terminal-header {
+    background: #1a1a1a;
+    padding: 0.5rem 1rem;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #333;
+  }
+
+  .terminal-buttons {
+    display: flex;
+    gap: 0.5rem;
+    margin-right: 1rem;
+  }
+
+  .terminal-buttons span {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+  }
+
+  .btn-close {
+    background: #ff5f56;
+  }
+
+  .btn-minimize {
+    background: #ffbd2e;
+  }
+
+  .btn-maximize {
+    background: #27ca3f;
+  }
+
+  .terminal-title {
+    color: #888;
+    font-size: 0.9rem;
+  }
+
+  .terminal-content {
+    padding: 1rem;
+  }
+
+  /* JSON 样式 */
+  .json-structure {
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
+    line-height: 1.4;
+  }
+
+  .json-line {
+    margin: 0.2rem 0;
+  }
+
+  .indent { margin-left: 1rem; }
+  .indent-2 { margin-left: 2rem; }
+  .indent-3 { margin-left: 3rem; }
+
+  .json-key { color: #4ecdc4; }
+  .json-string { color: #ffe66d; }
+  .json-bracket { color: #ff6b6b; }
+  .json-colon { color: #888; }
+  .json-comma { color: #888; }
+
+  .post-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    transition: all 0.3s ease;
+  }
+
+  .post-link:hover .json-string {
+    color: #00ff00;
+    text-shadow: 0 0 5px #00ff00;
+  }
+
+  /* 控制台样式 */
+  .console-output {
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+
+  .console-line {
+    margin: 0.5rem 0;
+  }
+
+  .prompt {
+    color: #ff6b6b;
+    margin-right: 0.5rem;
+  }
+
+  .command {
+    color: #4ecdc4;
+  }
+
+  .output {
+    color: #00ff00;
+    margin-left: 1rem;
+  }
+
+  .text-primary {
+    color: #ffe66d;
+    font-weight: bold;
+  }
+
+  .comment {
+    color: #888;
+  }
+
+  .string {
+    color: #ffe66d;
+  }
+
+  /* 游戏样式 */
+  .game-terminal .terminal-content {
+    text-align: center;
+  }
+
+  #game-canvas {
+    border: 1px solid #333;
+    border-radius: 4px;
+    background: #000;
+  }
+
+  .game-status {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+  }
+
+  .status-text {
+    color: #4ecdc4;
+  }
+
+  /* 响应式调整 */
+  @media (max-width: 767px) {
+    .universe-grid {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+      padding: 0 1rem;
+    }
+    
+    .hacker-title {
+      font-size: 2rem;
+    }
+    
+    .terminal-content {
+      padding: 0.5rem;
+    }
+    
+    .json-structure, .console-output {
+      font-size: 0.8rem;
+    }
+  } 
