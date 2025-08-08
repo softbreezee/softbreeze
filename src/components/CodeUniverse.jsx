@@ -12,66 +12,7 @@ function formatDate(date) {
 
 const CodeUniverse = ({ posts }) => {
   useEffect(() => {
-    // Matrix rain effect
-    function initMatrix() {
-      const canvas = document.getElementById('matrix-bg');
-      if (!canvas) return;
-      const ctx = canvas.getContext('2d');
-      if (!ctx) return;
-
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-
-      const matrix = "ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789@#$%^&*()*&^%+-/~{[|`]}";
-      const matrixArray = matrix.split("");
-
-      const fontSize = 10;
-      const columns = canvas.width / fontSize;
-
-      const drops = [];
-      for (let x = 0; x < columns; x++) {
-        drops[x] = 1;
-      }
-
-      let intervalId;
-      function draw() {
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.04)';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-        ctx.fillStyle = '#0F0';
-        ctx.font = `${fontSize}px arial`;
-
-        for (let i = 0; i < drops.length; i++) {
-          const text = matrixArray[Math.floor(Math.random() * matrixArray.length)];
-          ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-
-          if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-            drops[i] = 0;
-          }
-          drops[i]++;
-        }
-      }
-
-      intervalId = setInterval(draw, 35);
-      
-      const handleResize = () => {
-        if (canvas) {
-          canvas.width = window.innerWidth;
-          canvas.height = window.innerHeight;
-        }
-      };
-      
-      window.addEventListener('resize', handleResize);
-
-      return () => {
-        clearInterval(intervalId);
-        window.removeEventListener('resize', handleResize);
-      };
-    }
-
-    const cleanupMatrix = initMatrix();
-
-    // Daily Quote Fetcher
+    // 每日语录
     const fetchQuote = async () => {
       try {
         const response = await fetch("https://v1.hitokoto.cn");
@@ -94,15 +35,29 @@ const CodeUniverse = ({ posts }) => {
 
     fetchQuote();
 
-    // Game Logic
+    // 游戏逻辑（配色调整为蓝紫青系）
     const canvas = document.getElementById("game-canvas");
     if (!canvas) return;
     const ctx = canvas.getContext("2d");
+    const scoreList = document.getElementById('score-history');
+
+    const addHistory = (score) => {
+      if (!scoreList) return;
+      const item = document.createElement('li');
+      const time = new Date().toLocaleTimeString('zh-CN', { hour12: false });
+      item.textContent = `${time}  —  ${score}`;
+      scoreList.insertBefore(item, scoreList.firstChild);
+      // 只保留最近 10 条
+      while (scoreList.children.length > 10) {
+        scoreList.removeChild(scoreList.lastChild);
+      }
+    };
 
     class Game {
-        constructor() {
+        constructor(onGameOver) {
           this.canvas = canvas;
           this.ctx = ctx;
+          this.onGameOver = onGameOver;
           this.init();
         }
 
@@ -115,6 +70,7 @@ const CodeUniverse = ({ posts }) => {
           this.score = 0;
           this.gameOver = false;
           this.gameStarted = false;
+          this.recorded = false;
           
           if (!isRestart) {
             document.addEventListener("keydown", this.handleInput);
@@ -183,22 +139,26 @@ const CodeUniverse = ({ posts }) => {
             ) {
               this.gameOver = true;
               this.updateStatus(`Game Over - Score: ${this.score} - Press SPACE to restart`);
+              if (!this.recorded) { this.onGameOver && this.onGameOver(this.score); this.recorded = true; }
             }
           });
 
           if (this.birdY > this.canvas.height - 30 || this.birdY < 0) {
             this.gameOver = true;
             this.updateStatus(`Game Over - Score: ${this.score} - Press SPACE to restart`);
+            if (!this.recorded) { this.onGameOver && this.onGameOver(this.score); this.recorded = true; }
           }
 
           this.frame++;
         }
 
         draw() {
-          this.ctx.fillStyle = "#000";
+          // 背景
+          this.ctx.fillStyle = "#0b1021";
           this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
           
-          this.ctx.strokeStyle = "#003300";
+          // 细网格
+          this.ctx.strokeStyle = "rgba(124, 240, 255, 0.08)";
           this.ctx.lineWidth = 0.5;
           for (let i = 0; i < this.canvas.width; i += 20) {
             this.ctx.beginPath();
@@ -213,14 +173,16 @@ const CodeUniverse = ({ posts }) => {
             this.ctx.stroke();
           }
 
-          this.ctx.shadowColor = "#00ff00";
+          // 玩家
+          this.ctx.shadowColor = "#7cf0ff";
           this.ctx.shadowBlur = 10;
-          this.ctx.fillStyle = "#00ff00";
+          this.ctx.fillStyle = "#7cf0ff";
           this.ctx.fillRect(100, this.birdY, 40, 30);
           this.ctx.shadowBlur = 0;
 
-          this.ctx.fillStyle = "#ff6b6b";
-          this.ctx.shadowColor = "#ff6b6b";
+          // 障碍
+          this.ctx.fillStyle = "#7c6cff";
+          this.ctx.shadowColor = "#7c6cff";
           this.ctx.shadowBlur = 5;
           this.pipes.forEach((pipe) => {
             const gap = 150;
@@ -234,22 +196,22 @@ const CodeUniverse = ({ posts }) => {
           });
           this.ctx.shadowBlur = 0;
 
-          this.ctx.fillStyle = "#00ff00";
+          this.ctx.fillStyle = "#8ab4ff";
           this.ctx.font = "20px 'Courier New'";
           this.ctx.textAlign = "left";
           this.ctx.fillText(`Score: ${this.score}`, 10, 30);
           
           if (this.gameOver) {
             this.ctx.textAlign = "center";
-            this.ctx.fillStyle = "#ff6b6b";
+            this.ctx.fillStyle = "#ff8fa3";
             this.ctx.font = "32px 'Courier New'";
             this.ctx.fillText("GAME OVER", this.canvas.width / 2, this.canvas.height / 2 - 20);
-            this.ctx.fillStyle = "#4ecdc4";
+            this.ctx.fillStyle = "#7cf0ff";
             this.ctx.font = "16px 'Courier New'";
             this.ctx.fillText("Press SPACE to restart", this.canvas.width / 2, this.canvas.height / 2 + 20);
           } else if (!this.gameStarted) {
             this.ctx.textAlign = "center";
-            this.ctx.fillStyle = "#4ecdc4";
+            this.ctx.fillStyle = "#7cf0ff";
             this.ctx.font = "24px 'Courier New'";
             this.ctx.fillText("Press SPACE to start", this.canvas.width / 2, this.canvas.height / 2);
           }
@@ -262,136 +224,86 @@ const CodeUniverse = ({ posts }) => {
         }
       }
       
-      const game = new Game();
+      const game = new Game(addHistory);
       
-      const gamePanel = document.querySelector('.game-terminal .terminal-content');
-      if (gamePanel) {
-        const canvasWidth = Math.min(800, gamePanel.clientWidth - 32);
+      const gamePanel = document.querySelector('.game-card .card-content') || canvas.parentElement;
+      const setCanvasSize = () => {
+        const panelWidth = gamePanel ? gamePanel.clientWidth : 800;
+        const canvasWidth = Math.min(900, panelWidth - 32);
         canvas.width = canvasWidth;
-        canvas.height = Math.max(300, (canvasWidth / 16) * 9);
-      }
+        canvas.height = Math.max(320, Math.round((canvasWidth / 16) * 9));
+      };
+      setCanvasSize();
+      window.addEventListener('resize', setCanvasSize);
 
     return () => {
-      cleanupMatrix && cleanupMatrix();
       document.removeEventListener('keydown', game.handleInput);
       cancelAnimationFrame(game.animationFrameId);
+      window.removeEventListener('resize', setCanvasSize);
     };
   }, []);
 
   return (
     <div className="code-universe">
-      <canvas id="matrix-bg" className="matrix-background"></canvas>
-      
-      <header className="universe-header">
-        <h1 className="hacker-title">
-          <span className="bracket">&lt;</span>
-          <span className="code-text">Code</span>
-          <span className="universe-text">Universe</span>
-          <span className="bracket">/&gt;</span>
-        </h1>
-        <div className="subtitle-container">
-          <span className="terminal-prompt">root@universe:~$</span>
-          <span className="typing-text">探索前沿技术 | 分享开发心得</span>
+      <div className="bg-orbs" aria-hidden="true"></div>
+
+      <header className="hero">
+        <h1 className="hero-title">CodeUniverse</h1>
+        <p className="hero-subtitle">探索前沿技术 · 分享开发洞见</p>
+        <div className="cta-row">
+          <a className="btn btn-primary" href="/blog/">阅读博客</a>
+          <a className="btn btn-secondary" href="#play">开始小游戏</a>
         </div>
       </header>
 
       <div className="universe-grid">
-        <section className="terminal-section game-terminal">
-          <div className="terminal-header">
-            <div className="terminal-buttons">
-              <span className="btn-close"></span>
-              <span className="btn-minimize"></span>
-              <span className="btn-maximize"></span>
-            </div>
-            <span className="terminal-title">game.exe</span>
+        <section id="play" className="card game-card">
+          <div className="card-header">
+            <span className="card-title">Mini Game</span>
           </div>
-          <div className="terminal-content">
-            <canvas id="game-canvas"></canvas>
-            <div className="game-status">
-              <span className="status-text">Status: Ready</span>
-            </div>
-          </div>
-        </section>
-
-        <section className="terminal-section posts-terminal">
-          <div className="terminal-header">
-            <div className="terminal-buttons">
-              <span className="btn-close"></span>
-              <span className="btn-minimize"></span>
-              <span className="btn-maximize"></span>
-            </div>
-            <span className="terminal-title">latest_posts.json</span>
-          </div>
-          <div className="terminal-content">
-            <div className="json-structure">
-              <div className="json-line">
-                <span className="json-bracket">{'{'}</span>
-              </div>
-              <div className="json-line indent">
-                <span className="json-key">"posts"</span><span className="json-colon">:</span> <span className="json-bracket">{'['}</span>
-              </div>
-              {posts && posts.slice(0, 3).map((post, index) => (
-                <div className="json-line indent-2" key={post.slug}>
-                  <span className="json-bracket">{'{'}</span>
-                  <div className="post-content">
-                    <a href={`/blog/${post.slug}/`} className="post-link">
-                      <div className="json-line indent-3">
-                        <span className="json-key">"title"</span><span className="json-colon">:</span> 
-                        <span className="json-string">{`"${post.data.title}"`}</span><span className="json-comma">,</span>
-                      </div>
-                      <div className="json-line indent-3">
-                        <span className="json-key">"date"</span><span className="json-colon">:</span> 
-                        <span className="json-string">{`"${formatDate(post.data.pubDate)}"`}</span>
-                      </div>
-                    </a>
-                  </div>
-                  <div className="json-line indent-2">
-                    <span className="json-bracket">{'}'}</span>{index < 2 ? <span className="json-comma">,</span> : ''}
-                  </div>
+          <div className="card-content">
+            <div className="game-layout">
+              <div className="game-canvas-wrap">
+                <canvas id="game-canvas"></canvas>
+                <div className="game-status">
+                  <span className="status-text">Status: Ready</span>
                 </div>
-              ))}
-              <div className="json-line indent">
-                <span className="json-bracket">{']'}</span>
               </div>
-              <div className="json-line">
-                <span className="json-bracket">{'}'}</span>
-              </div>
+              <aside className="game-history">
+                <div className="history-title">游戏记录</div>
+                <ul id="score-history" className="history-list"></ul>
+              </aside>
             </div>
           </div>
         </section>
 
-        <section className="terminal-section intro-terminal">
-          <div className="terminal-header">
-            <div className="terminal-buttons">
-              <span className="btn-close"></span>
-              <span className="btn-minimize"></span>
-              <span className="btn-maximize"></span>
-            </div>
-            <span className="terminal-title">about.sh</span>
+        <section className="card posts-card">
+          <div className="card-header">
+            <span className="card-title">最新文章</span>
           </div>
-          <div className="terminal-content">
-            <div className="console-output">
-              <div className="console-line">
-                <span className="prompt">$</span> <span className="command">./about.sh</span>
-              </div>
-              <div className="console-line output">
-                探索技术世界
-              </div>
-              <div className="console-line output">
-                分享前沿技术与开发心得
-              </div>
-              <div className="console-line">
-                <Greeting messages={["你好", "欢迎", "很高兴见到你", "欢迎回来"]} />
-              </div>
-              <div className="console-line">
-                <span className="prompt">$</span> <span className="command">python daily_quote.py</span>
-              </div>
-              <div className="console-line output">
-                <span className="comment"># 每日语录</span>
-              </div>
-              <div className="console-line output">
-                <span className="string" id="quote-text">正在加载每日语录...</span>
-              </div>
+          <div className="card-content">
+            <div className="posts-list">
+              {posts && posts.slice(0, 3).map((post) => (
+                <a key={post.slug} href={`/blog/${post.slug}/`} className="post-card">
+                  <div className="post-title">{post.data.title}</div>
+                  <div className="post-date">{formatDate(post.data.pubDate)}</div>
+                </a>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="card about-card">
+          <div className="card-header">
+            <span className="card-title">关于</span>
+          </div>
+          <div className="card-content">
+            <div className="about-lines">
+              <div>探索技术世界 · 构建优雅产品</div>
+              <div>分享前沿技术与开发心得</div>
+              <div className="greeting"><Greeting messages={["你好", "欢迎", "很高兴见到你", "欢迎回来"]} /></div>
+              <div className="quote-label">每日语录</div>
+              <div className="quote-text" id="quote-text">正在加载每日语录...</div>
             </div>
           </div>
         </section>
