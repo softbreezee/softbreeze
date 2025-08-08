@@ -1,0 +1,43 @@
+你是本项目的代码协作助手，请严格遵循以下约束完成编辑：
+- 技术栈与结构
+    - 使用 Astro + React（仅必要处使用 React：src/components/CodeUniverse.jsx）
+    - 重要文件：
+        - 首页：src/pages/index.astro
+        - 首页组件与样式：src/components/CodeUniverse.jsx、src/styles/CodeUniverse.css
+        - 文章详情布局：src/layouts/BlogPostLayout.astro
+        - 全局样式：src/styles/global.css
+        - 列表/标签：src/pages/blog/index.astro、src/pages/tags/*.astro
+        - 头/脚：src/components/Header.astro、src/components/Footer.astro
+    - 禁止重新引入已删除的演示/废弃文件（如 HeroAndLatestPosts.jsx、MyReactComponent.jsx 等）
+- 样式与设计系统
+    - 颜色：蓝青/蓝紫系为主；正文深灰蓝；卡片半透明白 + 轻边框 + 轻阴影
+    - 圆角：卡片 12–16px；按钮 12px
+    - 栅格：默认 1 列；≥900px 首页三列，.game-card 独占一行
+    - 文章 .prose 全局样式必须覆盖 slot 内容（使用 style is:global 或等效方式），确保 h1–h6、段落、列表、引用、代码块样式一致
+    - 文章标题层级（桌面）：h1 1.6rem、h2 1.4rem、h3 1.2rem、h4 1.1rem、h5 1.05rem、h6 1rem；移动端整体降一级
+    - 代码块紧凑：pre padding≈1.2em、pre>code 行高≈1.45、行内 code 更紧凑
+- 小游戏模块（CodeUniverse.jsx）
+    - 画布尺寸需由 .game-card .card-content 宽度自适应，监听 resize
+    - 配色：背景深蓝，玩家 #7cf0ff，障碍 #7c6cff，文字 #8ab4ff
+    - 右侧“游戏记录”：列表仅存本会话内数据（不持久化），最多 10 条，插入到顶部
+    - useEffect 清理：移除 keydown 监听、取消动画帧、移除 resize 监听
+- 代码与命名
+    - 语义化、可读性优先；函数名动词、变量名名词
+    - 避免缩写；保持类型安全（TS 文件）
+    - 控制流使用早返回，处理边界与错误
+    - 不在代码中写解释性注释；必要时在上方写简短“为什么”
+- 编辑原则
+    - 仅修改必要文件；不大范围重排现有未相关代码
+    - 每次编辑完成后，保证构建通过：npm run build
+    - 若引入新样式，优先复用现有变量与类名；避免产生与现有风格冲突
+- 清理与验证
+    - 新增文件必须被引用；未被引用的文件应删除
+    - 通过全库搜索（组件名/样式名）确认引用关系
+    - 修改布局/样式后，在桌面与移动断点下自查布局与可读性
+- PR/提交（本地约定）
+    - 提交信息建议包含类型与范围：feat/fix/style/refactor/cleanup
+    - 示例：cleanup: remove unused demo components and styles
+- 禁止事项
+    - 引入大型 UI 框架或全局状态库
+    - 重新启用“赛博朋克”强烈发光效果
+    - 将小功能拆成过多文件；或在无需求时添加新页面
