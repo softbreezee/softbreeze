@@ -4,6 +4,7 @@ import FormattedDate from "../components/FormattedDate";
 import BaseHead from "../components/BaseHead.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
+import TableOfContents from "../components/TableOfContents.jsx";
 
 // type Props = CollectionEntry<"blog">["data"];
 
@@ -18,35 +19,38 @@ const { frontmatter } = Astro.props;
   <body>
     <Header />
     <main>
-      <article>
-        <div class="prose">
-          <div class="title">
-            <div class="date">
-              <FormattedDate date={frontmatter.pubDate} />
-              {
-                frontmatter.updatedDate && (
-                  <div class="last-updated-on">
-                    Last updated on{" "}<FormattedDate date={frontmatter.updatedDate} />
-                  </div>
-                )
-              }
+      <div class="blog-layout">
+        <TableOfContents client:visible />
+        <article class="blog-content">
+          <div class="prose">
+            <div class="title">
+              <div class="date">
+                <FormattedDate date={frontmatter.pubDate} />
+                {
+                  frontmatter.updatedDate && (
+                    <div class="last-updated-on">
+                      Last updated on{" "}<FormattedDate date={frontmatter.updatedDate} />
+                    </div>
+                  )
+                }
+              </div>
+              <h1 class="post-title">{frontmatter.title}</h1>
+              <!-- <hr /> -->
+              <div class="tags">
+                {
+                  frontmatter.tags?.map((tag: string) => (
+                    <p class="tag">
+                      <a href={`/tags/${tag}`}>{tag}</a>
+                    </p>
+                  ))
+                }
+              </div>
             </div>
-            <h1 class="post-title">{frontmatter.title}</h1>
-            <hr />
-            <div class="tags">
-              {
-                frontmatter.tags?.map((tag: string) => (
-                  <p class="tag">
-                    <a href={`/tags/${tag}`}>{tag}</a>
-                  </p>
-                ))
-              }
-            </div>
+            <!-- slot 为 blog 内容 -->
+            <slot />
           </div>
-          <!-- slot 为 blog 内容 -->
-          <slot />
-        </div>
-      </article>
+        </article>
+      </div>
     </main>
     <Footer />
   </body>
@@ -58,12 +62,26 @@ const { frontmatter } = Astro.props;
     max-width: 100%;
     margin: 0;
   }
+  
+  .blog-layout {
+    position: relative;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 1em;
+  }
+  
+  .blog-content {
+    width: 100%;
+  }
+  
   .prose {
-    width: 960px;
-    max-width: calc(100% - 2em);
-    margin: auto;
-    padding: 1em;
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 2em 0;
     color: rgb(var(--gray-dark));
+    font-size: 1.1rem;
+    line-height: 1.8;
   }
   .date {
     margin-bottom: 0.5em;
@@ -74,10 +92,11 @@ const { frontmatter } = Astro.props;
   }
   .post-title {
     color: rgb(var(--black));
-    font-size: 2.5rem;
-    margin: 0.5em 0;
-    padding-bottom: 0.25em;
-    border-bottom: 2px solid rgb(var(--gray-light));
+    font-size: 2.8rem;
+    margin: 1em 0 0.8em;
+    padding-bottom: 0.3em;
+    border-bottom: 3px solid rgb(var(--gray-light));
+    line-height: 1.3;
   }
   .tags {
     display: flex;
@@ -118,20 +137,153 @@ const { frontmatter } = Astro.props;
   pre {
     background-color: #2d2d2d;
     color: #cccccc;
-    padding: 1.5em;
+    padding: 1em;
     border-radius: 8px;
     overflow-x: auto;
-    margin: 1.5em 0;
+    margin: 1em 0;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
   }
   pre > code {
     all: unset;
     font-family: 'Fira Code', monospace;
     font-size: 0.9em;
+    line-height: 1.4;
   }
   code {
-    padding: 2px 5px;
-    background-color: #f0f0f0;
-    border-radius: 2px;
+    padding: 2px 4px;
+    background-color: #f5f7fa;
+    border-radius: 3px;
     font-family: 'Fira Code', monospace;
+    font-size: 0.85em;
+    border: 1px solid #eef2f6;
+  }
+  /* 响应式优化 */
+  @media (max-width: 1200px) {
+    .blog-layout {
+      flex-direction: column;
+      gap: 1rem;
+    }
+    
+    .blog-content {
+      order: 2;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .blog-layout {
+      padding: 0 0.5em;
+    }
+    
+    .prose {
+      font-size: 1rem;
+      line-height: 1.7;
+      padding: 1.5em 0;
+    }
+    .post-title {
+      font-size: 2.2rem;
+    }
+    .prose h1 { font-size: 1.4rem; }
+    .prose h2 { font-size: 1.3rem; }
+    .prose h3 { font-size: 1.2rem; }
+    .prose h4 { font-size: 1.1rem; }
+    .prose h5 { font-size: 1.05rem; }
+    .prose h6 { font-size: 1rem; }
   }
 </style>
+
+<style is:global>
+  /* 对 slot 渲染出来的内容应用全局样式（避免 Astro 作用域样式不影响插槽） */
+  .prose p { margin-bottom: 1.5em; text-align: justify; }
+  .prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6 { margin-top: 2em; margin-bottom: 0.8em; line-height: 1.4; }
+  .prose h1 { font-size: 1.6rem; }
+  .prose h2 { font-size: 1.4rem; }
+  .prose h3 { font-size: 1.2rem; }
+  .prose h4 { font-size: 1.1rem; }
+  .prose h5 { font-size: 1.05rem; }
+  .prose h6 { font-size: 1rem; }
+  .prose ul, .prose ol { margin: 1.2em 0; padding-left: 1.5em; }
+  .prose li { margin-bottom: 0.6em; line-height: 1.7; }
+  .prose blockquote { margin: 1.5em 0; padding: 1em 1.5em; background: rgba(35, 55, 255, 0.05); border-left: 4px solid var(--accent); border-radius: 0 8px 8px 0; }
+  .prose pre { background-color: #2d2d2d; color: #cccccc; padding: 1em; border-radius: 8px; overflow-x: auto; margin: 1em 0; box-shadow: 0 2px 6px rgba(0,0,0,0.08); }
+  .prose pre > code { all: unset; font-family: 'Fira Code', monospace; font-size: 0.9em; line-height: 1.4; }
+  .prose code { padding: 2px 4px; background-color: #f5f7fa; border-radius: 3px; font-family: 'Fira Code', monospace; font-size: 0.85em; border: 1px solid #eef2f6; }
+
+  @media (max-width: 768px) {
+    .prose { font-size: 1rem; line-height: 1.7; }
+    .prose h1 { font-size: 1.4rem; }
+    .prose h2 { font-size: 1.3rem; }
+    .prose h3 { font-size: 1.2rem; }
+    .prose h4 { font-size: 1.1rem; }
+    .prose h5 { font-size: 1.05rem; }
+    .prose h6 { font-size: 1rem; }
+  }
+</style>
+
+<!-- Mermaid 前端渲染 -->
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', function() {
+    // 等待 Mermaid 加载完成
+    function waitForMermaid() {
+      if (typeof mermaid !== 'undefined') {
+        initMermaid();
+      } else {
+        setTimeout(waitForMermaid, 100);
+      }
+    }
+    
+    function initMermaid() {
+      // 初始化 Mermaid
+      mermaid.initialize({
+        startOnLoad: false,
+        theme: 'neutral',
+        securityLevel: 'loose'
+      });
+      
+      // 查找所有 mermaid 代码块 - 尝试多种选择器
+      const mermaidBlocks = document.querySelectorAll('pre code.language-mermaid, pre code.lang-mermaid, pre code[class*="mermaid"]');
+      
+      // 如果没有找到，尝试查找包含 mermaid 内容的代码块
+      if (mermaidBlocks.length === 0) {
+        const allCodeBlocks = document.querySelectorAll('pre code');
+        allCodeBlocks.forEach((code) => {
+          if (code.textContent.includes('graph') || code.textContent.includes('flowchart')) {
+            const pre = code.parentElement;
+            const container = document.createElement('div');
+            container.className = 'mermaid';
+            container.textContent = code.textContent || '';
+            
+            // 替换代码块为 mermaid 容器
+            pre.parentNode.replaceChild(container, pre);
+            
+            // 渲染图表
+            try {
+              mermaid.run({ querySelector: '.mermaid' });
+            } catch (error) {
+              console.error('Error rendering mermaid:', error);
+            }
+          }
+        });
+      } else {
+        mermaidBlocks.forEach(function(codeBlock) {
+          const pre = codeBlock.parentElement;
+          const container = document.createElement('div');
+          container.className = 'mermaid';
+          container.textContent = codeBlock.textContent || '';
+          
+          // 替换代码块为 mermaid 容器
+          pre.parentNode.replaceChild(container, pre);
+          
+          // 渲染图表
+          try {
+            mermaid.run({ querySelector: '.mermaid' });
+          } catch (error) {
+            console.error('Error rendering mermaid:', error);
+          }
+        });
+      }
+    }
+    
+    waitForMermaid();
+  });
+</script>
