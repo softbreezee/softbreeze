@@ -1,0 +1,189 @@
+.toc {
+  position: fixed;
+  top: 120px;
+  left: 20px; /* 固定在左侧，距离左边缘20px */
+  width: 280px;
+  max-height: calc(100vh - 160px);
+  overflow-y: auto;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(35, 55, 255, 0.1);
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  z-index: 100;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  transition: all 0.3s ease;
+}
+
+/* 收缩状态的目录 */
+.toc-collapsed {
+  top: 20px;
+  width: 280px;
+  max-height: calc(100vh - 40px);
+}
+
+/* 目录图标 */
+.toc-icon {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  width: 48px;
+  height: 48px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(35, 55, 255, 0.1);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  z-index: 100;
+  transition: all 0.3s ease;
+  color: rgb(var(--gray-dark));
+}
+
+.toc-icon:hover {
+  background: rgba(255, 255, 255, 0.98);
+  border-color: rgba(35, 55, 255, 0.2);
+  transform: scale(1.05);
+}
+
+.toc-header {
+  font-weight: 600;
+  font-size: 1rem;
+  color: rgb(var(--black));
+  margin-bottom: 0.8rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid rgba(35, 55, 255, 0.1);
+}
+
+.toc-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.toc-item {
+  margin: 0.3rem 0;
+}
+
+.toc-link {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  padding: 0.4rem 0.6rem;
+  border-radius: 6px;
+  color: rgb(var(--gray-dark));
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+.toc-link:hover {
+  background: rgba(35, 55, 255, 0.05);
+  color: rgb(var(--black));
+}
+
+.toc-item.active .toc-link {
+  background: rgba(35, 55, 255, 0.1);
+  color: rgb(var(--accent));
+  font-weight: 500;
+}
+
+/* 不同层级的缩进 */
+.toc-level-1 .toc-link {
+  padding-left: 0.6rem;
+  font-weight: 500;
+}
+
+.toc-level-2 .toc-link {
+  padding-left: 1.2rem;
+  font-size: 0.85rem;
+}
+
+.toc-level-3 .toc-link {
+  padding-left: 1.8rem;
+  font-size: 0.8rem;
+  color: rgb(var(--gray));
+}
+
+.toc-level-4 .toc-link,
+.toc-level-5 .toc-link,
+.toc-level-6 .toc-link {
+  padding-left: 2.4rem;
+  font-size: 0.75rem;
+  color: rgb(var(--gray));
+}
+
+/* 隐藏滚动条 */
+.toc::-webkit-scrollbar {
+  width: 0;
+  display: none;
+}
+
+.toc {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+/* 确保目录下方有足够的空间 */
+.toc-list {
+  padding-bottom: 120px; /* 与顶部间距相同 */
+}
+
+.toc-placeholder {
+  position: fixed;
+  top: 120px;
+  left: 20px; /* 固定在左侧，距离左边缘20px */
+  width: 280px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(35, 55, 255, 0.1);
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  z-index: 100;
+  font-size: 0.9rem;
+  color: rgb(var(--gray));
+  text-align: center;
+}
+
+/* 响应式设计 */
+@media (max-width: 1200px) {
+  .toc {
+    position: static;
+    width: 100%;
+    max-height: none;
+    margin: 0 0 2rem 0;
+    transform: none;
+    left: auto;
+    order: -1;
+  }
+  
+  .toc-placeholder {
+    position: static;
+    width: 100%;
+    margin: 0 0 2rem 0;
+    transform: none;
+    left: auto;
+    order: -1;
+  }
+}
+
+@media (max-width: 768px) {
+  .toc {
+    font-size: 0.85rem;
+    padding: 0.8rem;
+  }
+  
+  .toc-header {
+    font-size: 0.95rem;
+  }
+}

@@ -11,3 +11,11 @@ pubDate: 2022-07-08
 tags: ["astro", "blogging", "learning in public", "successes"]
 ---
 在学习 Astro 大约一周后，我决定尝试些新的东西。我编写并导入了一个小组件！
+
+```mermaid
+  graph LR
+  Producer -->|发布消息| Topic
+  Topic -->|分成多个| Partition
+  Partition -->|被订阅| Consumer
+  Consumer -->|归属于| ConsumerGroup
+```

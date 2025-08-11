@@ -22,5 +22,8 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "zustand": "^5.0.3"
+  },
+  "devDependencies": {
+    "mermaid": "^11.9.0"
   }
 }
